@@ -90,24 +90,27 @@ class DoublyLinkedList:
     current tail's previous node the new tail of the List.
     Returns the value of the removed Node."""
     def remove_from_tail(self):
-        value = self.tail.value
-        self.delete(self.tail)
-        return value
-
+        pass
 
     """Removes the input node from its current spot in the 
     List and inserts it as the new head node of the List."""
     def move_to_front(self, node):
         self.delete(node)
-        self.add_to_head(node.value)
+        node.next = self.head
+        self.head.prev = node
+        self.head = node
+        #then add_to_head
+        self.add_to_head(node)
 
     """Removes the input node from its current spot in the 
     List and inserts it as the new tail node of the List."""
     def move_to_end(self, node):
+        pass
         # delete
         self.delete(node)
         # add_to_tail
-        self.add_to_tail(node.value)
+        
+
 
     """Removes a node from the list and handles cases where
     the node was the head or the tail"""
@@ -139,16 +142,4 @@ class DoublyLinkedList:
         
     """Returns the highest value currently in the list"""
     def get_max(self):
-        if self.head == self.tail:
-            return self.head.value
-
-        node = self.head
-        incr = 0
-        value = 0
-
-        while incr < self.length:
-            incr += 1
-            if value < node.value:
-                value = node.value
-            node = node.next
-        return value
+        pass
