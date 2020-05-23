@@ -1,3 +1,9 @@
+import sys
+sys.path.append('/doubly_linked_list.py')
+from doubly_linked_list import *
+
+from collections import OrderedDict
+
 class LRUCache:
     """
     Our LRUCache class keeps track of the max number of nodes it
@@ -7,7 +13,10 @@ class LRUCache:
     to every node stored in the cache.
     """
     def __init__(self, limit=10):
-        pass
+        self.length = limit
+        self.storage = DoublyLinkedList()
+        self.cache_order = OrderedDict()
+
 
     """
     Retrieves the value associated with the given key. Also
@@ -17,7 +26,14 @@ class LRUCache:
     key-value pair doesn't exist in the cache.
     """
     def get(self, key):
-        pass
+        # Look up value by key
+        if key not in self.cache_order:
+            return None
+        #node = self.cache_order[key]
+        node = ListNode(self.cache_order[key]) # add to dictionary; don't use ListNode
+        # move node to head of list
+        # node.add_to_head()
+    
 
     """
     Adds the given key-value pair to the cache. The newly-
@@ -30,4 +46,14 @@ class LRUCache:
     the newly-specified value.
     """
     def set(self, key, value):
-        pass
+        if self.length == 10:
+            self.storage.remove_from_tail()
+        else:
+            self.storage.add_to_head(value)
+            self.cache_order[key] = value
+            # increase length of list
+        print(self.cache_order)
+
+        # check length of list
+        # remove tail if list is full
+        # 
