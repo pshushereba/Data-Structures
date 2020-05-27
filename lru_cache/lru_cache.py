@@ -29,7 +29,7 @@ class LRUCache:
     def get(self, key):
         if key not in self.cache_order:
             return None
-        
+       
         node = self.storage.head
         while node is not None:
             if key == node.value[0]:
@@ -37,8 +37,8 @@ class LRUCache:
                 break
             node = node.next
         return self.cache_order[key]
-        
-        
+       
+       
         # Look up value by key
         # if key not in self.cache_order:
         #     return None
@@ -48,7 +48,7 @@ class LRUCache:
         #node = self.storage # add to dictionary; don't use ListNode
         # move node to head of list
         # node.add_to_head()
-    
+   
 
     """
     Adds the given key-value pair to the cache. The newly-
@@ -86,25 +86,10 @@ class LRUCache:
                 self.storage.remove_from_tail()
 
                 del self.cache_order[old_key]
+            else:
+                self.size += 1 
 
             # if key isn't stored, and we are not full, just add to cache
-            
+           
             self.cache_order[key] = val
             self.storage.add_to_head([key, val])
-
-
-            
-
-        
-
-            
-
-
-        # if self.size == 10:
-        #     self.storage.remove_from_tail()
-        # else:
-        #     if key in self.cache_order:
-        #         self.cache_order[key] = value
-        #     else:
-        #         self.storage.add_to_head(value)
-        #         self.cache_order[key] = value
