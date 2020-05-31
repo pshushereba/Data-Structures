@@ -75,3 +75,11 @@ class LinkedList:
             node = node.next
         return value
 
+    # def reverse(self, node, prev):
+    #     # will need to call reverse(node.next, node) again
+    #     if prev is not None:
+    #         prev.next = None
+    #     if self.head != node:
+    #         self.add_to_head(node)
+    #     if node is not None:
+    #         self.reverse(node.next, node)
