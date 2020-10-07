@@ -35,3 +35,7 @@ class CacheTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+# 3 2 1
+# 1 3 2
+# 4 1 3

@@ -1,3 +1,9 @@
+import sys
+sys.path.append('/doubly_linked_list.py')
+from doubly_linked_list import *
+
+from collections import OrderedDict
+
 class LRUCache:
     """
     Our LRUCache class keeps track of the max number of nodes it
@@ -7,7 +13,11 @@ class LRUCache:
     to every node stored in the cache.
     """
     def __init__(self, limit=10):
-        pass
+        self.limit = limit
+        self.storage = DoublyLinkedList()
+        self.cache_order = OrderedDict()
+        self.size = self.storage.length
+
 
     """
     Retrieves the value associated with the given key. Also
@@ -17,7 +27,28 @@ class LRUCache:
     key-value pair doesn't exist in the cache.
     """
     def get(self, key):
-        pass
+        if key not in self.cache_order:
+            return None
+       
+        node = self.storage.head
+        while node is not None:
+            if key == node.value[0]:
+                self.storage.move_to_front(node)
+                break
+            node = node.next
+        return self.cache_order[key]
+       
+       
+        # Look up value by key
+        # if key not in self.cache_order:
+        #     return None
+        # else:
+        #     self.cache_order.move_to_end(key)
+        #     return self.cache_order[key]
+        #node = self.storage # add to dictionary; don't use ListNode
+        # move node to head of list
+        # node.add_to_head()
+   
 
     """
     Adds the given key-value pair to the cache. The newly-
@@ -29,5 +60,36 @@ class LRUCache:
     want to overwrite the old value associated with the key with
     the newly-specified value.
     """
-    def set(self, key, value):
-        pass
+    def set(self, key, val):
+        # if key is already stored, overwrite old value
+        if key in self.cache_order:
+            # overwrite in dictionary
+            self.cache_order[key] = val
+            # overwrite in DLL.
+            # iterate across and find node to be updated.
+            node = self.storage.head
+            while node is not None:
+                # check key equality
+                if key == node.value[0]:
+                    # and update the value
+                    node.value[1] = val
+                    # move to head of DLL.
+                    self.storage.move_to_front(node)
+                    break
+                node = node.next
+        else:
+            # handle case where the cache is already full.
+            if self.size == self.limit:
+                # delete something
+                node = self.storage.tail
+                old_key = node.value[0]
+                self.storage.remove_from_tail()
+
+                del self.cache_order[old_key]
+            else:
+                self.size += 1 
+
+            # if key isn't stored, and we are not full, just add to cache
+           
+            self.cache_order[key] = val
+            self.storage.add_to_head([key, val])
